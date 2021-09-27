@@ -9,10 +9,17 @@ export class TenantController {
 
     @Post()
     async addTenant(@Body() tenant: { name: string, phone: number, email: string }) {
-        return await this.__tenant.insertTenant(tenant);
+        return await this.__tenant.addNewTenant(tenant);
     }
 
+    @Get()
+	async getAllTenants(){
+		return await this.__tenant.getAllTenants();
+	}
 
-
+    @Get('/:tenantId')
+	async getOneTenant(@Param('tenantId') tenantId: string ){
+		return await this.__tenant.getOneTenant(tenantId);
+	}
 
 }

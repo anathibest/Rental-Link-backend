@@ -6,7 +6,7 @@ import { TenantSchema } from './tenant.model';
 
 @Module({
 	imports: [
-		MongooseModule.forFeature([ { name: "tenant", schema: TenantSchema } ]),
+		MongooseModule.forFeature([ { name: "Tenant", schema: TenantSchema } ]),
 	],
 	controllers: [TenantController],
     providers: [TenantService]
