@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete, Req } from '@nestjs/common';
 import { TenantService } from './tenant.service';
 
 @Controller('tenant')
@@ -22,4 +22,16 @@ export class TenantController {
 		return await this.__tenant.getOneTenant(tenantId);
 	}
 
+    @Delete('/:tenantkId')
+	async deleteOneTenant(@Param('tenantkId') tenantkId: string ){
+		return await this.__tenant.deleteOneTenant(tenantkId);
+	}
+
+    @Patch('/:tenantkId')
+	async updateOneTenant(@Param('tenantkId') tenantkId: string, @Body() tenant : { phone: number, email: string, name: string }){
+		return await this.__tenant.updateOneTenant(tenantkId, tenant);
+	}
+
+
 }
+

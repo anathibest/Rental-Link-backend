@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Body, Injectable, Logger, Param, Patch } from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import { Model } from "mongoose";
 
@@ -28,5 +28,18 @@ export class TenantService {
 		const tenant = await this.__tenantModel.findOne({_id:tenantId});
 		return tenant;
 	}
+
+    async deleteOneTenant(tenantId: string){
+		await this.getOneTenant(tenantId);
+		const remove_tenant = await this.__tenantModel.findOneAndDelete({ _id: tenantId }).exec();
+		return { message: `successfully deleted ${remove_tenant.name}'` };
+
+    }
+
+    @Patch('/:tenantId')
+	async updateOneTenant(@Param('tenantId') tenantId: string, @Body() tenant : { phone: number, email: string, name: string }){
+        return await this.__tenantModel.findByIdAndUpdate(tenantId, tenant);
+    }
+
 
 }
